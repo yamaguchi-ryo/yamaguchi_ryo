@@ -23,7 +23,6 @@ public class UserlistService {
 			List<User> ret = userlistDao.selectUsers(connection, LIMIT_NUM);
 
 			commit(connection);
-
 			return ret;
 		} catch (RuntimeException e) {
 			rollback(connection);
@@ -35,5 +34,4 @@ public class UserlistService {
 			close(connection);
 		}
 	}
-
 }

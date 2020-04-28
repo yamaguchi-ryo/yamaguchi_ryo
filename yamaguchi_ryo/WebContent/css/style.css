@@ -82,10 +82,10 @@ tbody input {
 
 .scroll {
 	max-height: 80%;
-	height: auto !important; /* IE6 max-height対応 */
-	height: 100px;/* IE6 max-height対応 */
-	overflow-x: hidden; /* 横スクロール非表示 */
-	overflow-y: scroll; /* 縦スクロール */
+	height: auto !important;
+	height: 100px;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 .cp_iptxt {
@@ -131,7 +131,6 @@ tbody input {
 	border-bottom: 1px solid #da3c41;
 	outline: none;
 }
-
 
 .cp_ipselect select {
 	width: 100%;

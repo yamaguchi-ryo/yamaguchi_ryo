@@ -69,7 +69,7 @@ public class UserEditServlet extends HttpServlet {
 
 			request.setAttribute("branchlist", branchList);
 			request.setAttribute("divrollist", divrolList);
-			request.setAttribute("edituser", editUser);
+			request.setAttribute("edituser", inputUser);
 
 			request.getRequestDispatcher("useredit.jsp").forward(request, response);
 		}
@@ -95,25 +95,23 @@ public class UserEditServlet extends HttpServlet {
 		String divisionRoleId = request.getParameter("divisionRoleId");
 		String password = request.getParameter("password");
 		String verifyPass = request.getParameter("verifypass");
+		inputUser.setLoginId(request.getParameter("loginId"));
+		inputUser.setName(request.getParameter("name"));
+		inputUser.setBranchId(Integer.parseInt(request.getParameter("branchId")));
+		inputUser.setDivisionRoleId(Integer.parseInt(request.getParameter("divisionRoleId")));
 
 		if (StringUtils.isEmpty(loginId) == true) {
 			messages.add("ログインIDを入力してください");
-		} else {
-			if(!loginId.matches("[0-9a-zA-Z9]{6,20}")) {
-				messages.add("ログインIDのフォーマットエラーです。");
-			} else {
-				inputUser.setLoginId(request.getParameter("loginId"));
-			}
+		} else if(!loginId.matches("[0-9a-zA-Z9]{6,20}")) {
+			messages.add("ログインIDのフォーマットエラーです。");
 		}
+
 		if (StringUtils.isEmpty(name) == true) {
 			messages.add("ユーザー名を入力してください");
-		} else {
-			if(!name.matches(".{1,10}")) {
-				messages.add("ユーザー名のフォーマットエラーです。");
-			} else {
-				inputUser.setName(request.getParameter("name"));
-			}
+		} else if(!name.matches(".{1,10}")) {
+			messages.add("ユーザー名のフォーマットエラーです。");
 		}
+
 		if (StringUtils.isEmpty(branchId) == true) {
 			messages.add("支店名を入力してください");
 		} else {
@@ -121,15 +119,16 @@ public class UserEditServlet extends HttpServlet {
 		}
 		if (StringUtils.isEmpty(divisionRoleId) == true) {
 			messages.add("部署/役職名を入力してください");
-		}else {
-			inputUser.setDivisionRoleId(Integer.parseInt(request.getParameter("divisionRoleId")));
 		}
 
-		if (!password.equals(verifyPass)) {
+		if (!password.matches("[a-zA-Z0-9!-/:-@\\[-`{-~]{6,20}")) {
+			messages.add("パスワードのフォーマットエラーです");
+		} else if(!password.equals(verifyPass)) {
 			messages.add("パスワードが一致しません");
 		}
 
-		if (messages.size() == 0) { //登録漏れがない場合リストの中身が空になるということ
+
+		if (messages.size() == 0) {
 			return true;
 		} else {
 			return false;

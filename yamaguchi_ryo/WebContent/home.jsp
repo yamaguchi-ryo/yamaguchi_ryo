@@ -34,7 +34,6 @@
 		</table>
 		<div class="scroll">
 			<table>
-				<!-- この下に繰り返しでユーザー名を表示していく -->
 				<c:forEach items="${userlist}" var="user">
 					<tr class="users">
 						<td style="width: 16%;"><a href="useredit?id=${user.id}"><c:out

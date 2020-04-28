@@ -23,7 +23,6 @@ public class BranchlistService {
 			List<User> ret = branchlistDao.selectBranches(connection, LIMIT_NUM);
 
 			commit(connection);
-
 			return ret;
 		} catch (RuntimeException e) {
 			rollback(connection);
@@ -34,11 +33,5 @@ public class BranchlistService {
 		} finally {
 			close(connection);
 		}
-
-
 	}
-
-
-
-
 }

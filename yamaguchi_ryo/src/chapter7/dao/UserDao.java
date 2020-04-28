@@ -33,14 +33,14 @@ public class UserDao {
 			sql.append(", created_date");
 			sql.append(", updated_date");
 			sql.append(") VALUES (");
-			sql.append("?"); // id
-			sql.append(", ?"); // password
-			sql.append(", ?"); // name
-			sql.append(", ?"); // branch_id
-			sql.append(", ?"); // division_role_id
-			sql.append(", '活動中'"); // active_stop
-			sql.append(", CURRENT_TIMESTAMP"); // created_date
-			sql.append(", CURRENT_TIMESTAMP"); // updated_date
+			sql.append("?");
+			sql.append(", ?");
+			sql.append(", ?");
+			sql.append(", ?");
+			sql.append(", ?");
+			sql.append(", '活動中'");
+			sql.append(", CURRENT_TIMESTAMP");
+			sql.append(", CURRENT_TIMESTAMP");
 			sql.append(")");
 
 			ps = connection.prepareStatement(sql.toString());
@@ -100,7 +100,7 @@ public class UserDao {
 
 		PreparedStatement ps = null;
 		try {
-			String sql = "SELECT" //SQL文の修正を入れる
+			String sql = "SELECT"
 					+ " users.id,"
 					+ "users.login_id,"
 					+ "users.name,"
@@ -133,7 +133,7 @@ public class UserDao {
 		PreparedStatement ps = null;
 		try {
 
-			String sql = "SELECT " //SQL文の修正を入れる
+			String sql = "SELECT "
 					+ "users.id,"
 					+ "users.login_id,"
 					+ "users.name,"

@@ -60,7 +60,7 @@ public class RegistrationServlet extends HttpServlet {
 			request.setAttribute("branchlist", branchList);
 			request.setAttribute("divrollist", divrolList);
 			request.setAttribute("inputUser", inputUser);
-			request.getRequestDispatcher("registration.jsp").forward(request, response);
+			response.sendRedirect("registration");
 		}
 	}
 
@@ -71,14 +71,16 @@ public class RegistrationServlet extends HttpServlet {
 		String divisionRoleId = request.getParameter("divisionRoleId");
 		String password = request.getParameter("password");
 		String verifyPass = request.getParameter("verifypass");
+		inputUser.setLoginId(request.getParameter("loginId"));
+		inputUser.setName(request.getParameter("name"));
+		inputUser.setBranchId(Integer.parseInt(request.getParameter("branchId")));
+		inputUser.setDivisionRoleId(Integer.parseInt(request.getParameter("divisionRoleId")));
 
 		if (StringUtils.isEmpty(loginId) == true) {
 			messages.add("ログインIDを入力してください");
 		} else {
 			if(!loginId.matches("[0-9a-zA-Z9]{6,20}")) {
 				messages.add("ログインIDのフォーマットエラーです。");
-			} else {
-				inputUser.setLoginId(request.getParameter("loginId"));
 			}
 		}
 		if (StringUtils.isEmpty(name) == true) {
@@ -86,29 +88,26 @@ public class RegistrationServlet extends HttpServlet {
 		} else {
 			if(!name.matches(".{1,10}")) {
 				messages.add("ユーザー名のフォーマットエラーです。");
-			} else {
-				inputUser.setName(request.getParameter("name"));
 			}
 		}
 		if (StringUtils.isEmpty(branchId) == true) {
 			messages.add("支店名を入力してください");
-		} else {
-			inputUser.setBranchId(Integer.parseInt(request.getParameter("branchId")));
 		}
 		if (StringUtils.isEmpty(divisionRoleId) == true) {
 			messages.add("部署/役職名を入力してください");
-		}else {
-			inputUser.setDivisionRoleId(Integer.parseInt(request.getParameter("divisionRoleId")));
 		}
 		if (StringUtils.isEmpty(password) == true) {
 			messages.add("パスワードを入力してください");
 		} else {
+			if(!password.matches("[a-zA-Z0-9!-/:-@\\[-`{-~]{6,20}")){
+				messages.add("パスワードのフォーマットエラーです");
+			}
 			if (!password.equals(verifyPass)) {
 				messages.add("パスワードが一致しません");
 			}
 		}
 
-		if (messages.size() == 0) { //登録漏れがない場合リストの中身が空になるということ
+		if (messages.size() == 0) {
 			return true;
 		} else {
 			return false;

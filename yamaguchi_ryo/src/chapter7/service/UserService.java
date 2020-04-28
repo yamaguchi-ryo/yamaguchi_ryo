@@ -11,7 +11,7 @@ import chapter7.utils.CipherUtil;
 
 public class UserService {
 
-	public void register(User user) { //registration
+	public void register(User user) {
 
 		Connection connection = null;
 		try {
@@ -35,7 +35,7 @@ public class UserService {
 		}
 	}
 
-	public User getEditUser(int id) { //
+	public User getEditUser(int id) {
 
 		Connection connection = null;
 		try {

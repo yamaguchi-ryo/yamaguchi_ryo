@@ -27,7 +27,7 @@ public class EncodingFilter implements Filter {
 			request.setCharacterEncoding(encoding);
 		}
 
-		chain.doFilter(request, response); // サーブレットを実行
+		chain.doFilter(request, response);
 
 	}
 

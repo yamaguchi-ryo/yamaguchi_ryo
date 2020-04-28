@@ -24,7 +24,6 @@ public class HomeServlet extends HttpServlet {
 
 
 		List<User> userList = new UserlistService().getUsers();
-		//userListに対応した支店名と所属/役職名の紐づけ
 
 
 		request.setAttribute("userlist", userList);
@@ -35,15 +34,12 @@ public class HomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
-//		HttpSession session = request.getSession();
 		User userStatus = getUserStatus(request);
 
 		try {
 			new UserService().change(userStatus);
 		} catch(NoRowsUpdatedRuntimeException e) {
-//			messages.add("他の人によって更新されています。最新のデータを表示しました。データを確認してください。");
-//			session.setAttribute("errorMessages", messages);
-			request.getRequestDispatcher("useredit.jsp").forward(request, response);
+			request.getRequestDispatcher("./").forward(request, response);
 			return;
 		}
 
@@ -51,7 +47,7 @@ public class HomeServlet extends HttpServlet {
 
 		request.setAttribute("userlist", userList);
 
-		request.getRequestDispatcher("/home.jsp").forward(request, response);
+		response.sendRedirect("./");
 
 	}
 
