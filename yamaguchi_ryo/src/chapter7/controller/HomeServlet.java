@@ -34,27 +34,27 @@ public class HomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
-		User userStatus = getUserStatus(request);
-
+		User status = fillUserStatus(request);
 		try {
-			new UserService().change(userStatus);
+			new UserService().change(status);
 		} catch(NoRowsUpdatedRuntimeException e) {
 			request.getRequestDispatcher("./").forward(request, response);
 			return;
 		}
 
 		List<User> userList = new UserlistService().getUsers();
-
 		request.setAttribute("userlist", userList);
-
 		response.sendRedirect("./");
-
 	}
 
-	private User getUserStatus(HttpServletRequest request) throws IOException, ServletException {
+	private User fillUserStatus(HttpServletRequest request) throws IOException, ServletException {
 		User userStatus = new User();
 		userStatus.setId(Integer.parseInt(request.getParameter("id")));
-		userStatus.setUserStopOrActive(request.getParameter("userStopOrActive"));
+		if(request.getParameter("userStopOrActive").equals("活動中")) {
+			userStatus.setUserStopOrActive(0);
+		} else {
+			userStatus.setUserStopOrActive(1);
+		}
 		return userStatus;
 	}
 }

@@ -70,7 +70,7 @@ public class UserDao {
 				String name = rs.getString("name");
 				int branchId = rs.getInt("branch_id");
 				int divisionRoleId = rs.getInt("division_role_id");
-				String userStopOrActive = rs.getString("active_stop");
+				int userStopOrActive = rs.getInt("active_stop");
 				Timestamp createdDate = rs.getTimestamp("created_date");
 				Timestamp updatedDate = rs.getTimestamp("updated_date");
 				String divisionRoleName = rs.getString("division_role_name");
@@ -231,10 +231,10 @@ public class UserDao {
 		String sql = null;
 		try {
 			int id = user.getId();
-			if(user.getUserStopOrActive().equals("活動中")) {
-				sql = "UPDATE users set active_stop = '停止中', updated_date = CURRENT_TIMESTAMP where id =" + id;
+			if(user.getUserStopOrActive() == 0) {
+				sql = "UPDATE users set active_stop = 1, updated_date = CURRENT_TIMESTAMP where id =" + id;
 			} else {
-				sql = "UPDATE users set active_stop = '活動中', updated_date = CURRENT_TIMESTAMP where id =" + id;
+				sql = "UPDATE users set active_stop = 0, updated_date = CURRENT_TIMESTAMP where id =" + id;
 			}
 
 			ps = connection.prepareStatement(sql);

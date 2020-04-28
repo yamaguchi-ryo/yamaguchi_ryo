@@ -102,20 +102,20 @@ public class UserEditServlet extends HttpServlet {
 
 		if (StringUtils.isEmpty(loginId) == true) {
 			messages.add("ログインIDを入力してください");
-		} else if(!loginId.matches("[0-9a-zA-Z9]{6,20}")) {
-			messages.add("ログインIDのフォーマットエラーです。");
+		} else {
+			if(!loginId.matches("[0-9a-zA-Z9]{6,20}")) {
+				messages.add("ログインIDのフォーマットエラーです:半角英数字6文字以上20文字以下");
+			}
 		}
-
 		if (StringUtils.isEmpty(name) == true) {
 			messages.add("ユーザー名を入力してください");
-		} else if(!name.matches(".{1,10}")) {
-			messages.add("ユーザー名のフォーマットエラーです。");
+		} else {
+			if(!name.matches(".{1,10}")) {
+				messages.add("ユーザー名のフォーマットエラーです:全角10文字以内");
+			}
 		}
-
 		if (StringUtils.isEmpty(branchId) == true) {
 			messages.add("支店名を入力してください");
-		} else {
-			inputUser.setBranchId(Integer.parseInt(request.getParameter("branchId")));
 		}
 		if (StringUtils.isEmpty(divisionRoleId) == true) {
 			messages.add("部署/役職名を入力してください");
@@ -126,7 +126,6 @@ public class UserEditServlet extends HttpServlet {
 		} else if(!password.equals(verifyPass)) {
 			messages.add("パスワードが一致しません");
 		}
-
 
 		if (messages.size() == 0) {
 			return true;

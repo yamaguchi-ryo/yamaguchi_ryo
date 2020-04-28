@@ -48,8 +48,16 @@
 						<td style="width: 12%;">
 							<form action="index.jsp" method="post" onSubmit="return check()">
 								<input type="submit" name="userStopOrActive"
-									id="userStopOrActive" value="${user.userStopOrActive}">
-								<input name="id" value="${user.id}" id="id" type="hidden" />
+									id="userStopOrActive"
+									<c:choose>
+										<c:when test="${user.userStopOrActive==0}">
+											value="活動中"
+										</c:when>
+										<c:otherwise>
+											value="停止中"
+										</c:otherwise>
+									</c:choose>>
+									<input name="id" value="${user.id}" id="id" type="hidden" />
 							</form>
 						</td>
 					</tr>

@@ -13,7 +13,7 @@ public class User implements Serializable {
 	private String name;
 	private int branchId;
 	private int divisionRoleId;
-	private String userStopOrActive;
+	private int userStopOrActive;
 	private Date createdDate;
 	private Date updatedDate;
 	private String divisionRoleName;
@@ -57,10 +57,10 @@ public class User implements Serializable {
 	public void setDivisionRoleId(int divisionRoleId) {
 		this.divisionRoleId = divisionRoleId;
 	}
-	public String getUserStopOrActive() {
+	public int getUserStopOrActive() {
 		return userStopOrActive;
 	}
-	public void setUserStopOrActive(String userStopOrActive) {
+	public void setUserStopOrActive(int userStopOrActive) {
 		this.userStopOrActive = userStopOrActive;
 	}
 	public Date getCreatedDate() {

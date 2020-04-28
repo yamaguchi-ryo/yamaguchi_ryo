@@ -27,10 +27,8 @@ public class RegistrationServlet extends HttpServlet {
 
 		List<User> branchList = new BranchlistService().getBranches();
 		List<User> divrolList = new DivrollistService().getDivrols();
-
 		request.setAttribute("branchlist", branchList);
 		request.setAttribute("divrollist", divrolList);
-
 		request.getRequestDispatcher("registration.jsp").forward(request, response);
 	}
 
@@ -38,28 +36,14 @@ public class RegistrationServlet extends HttpServlet {
 
 		List<String> messages = new ArrayList<String>();
 
-		User user = new User();
 		User inputUser = new User();
 		HttpSession session = request.getSession();
 		if (isValid(request, messages, inputUser) == true) {
-
-
-			user.setLoginId(request.getParameter("loginId"));
-			user.setPassword(request.getParameter("password"));
-			user.setName(request.getParameter("name"));
-			user.setBranchId(Integer.parseInt(request.getParameter("branchId")));
-			user.setDivisionRoleId(Integer.parseInt(request.getParameter("divisionRoleId")));
-			new UserService().register(user);
-
+			new UserService().register(inputUser);
 			response.sendRedirect("./");
 		} else {
 			session.setAttribute("errorMessages", messages);
-			List<User> branchList = new BranchlistService().getBranches();
-			List<User> divrolList = new DivrollistService().getDivrols();
-
-			request.setAttribute("branchlist", branchList);
-			request.setAttribute("divrollist", divrolList);
-			request.setAttribute("inputUser", inputUser);
+			session.setAttribute("inputUser", inputUser);
 			response.sendRedirect("registration");
 		}
 	}
@@ -72,6 +56,7 @@ public class RegistrationServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String verifyPass = request.getParameter("verifypass");
 		inputUser.setLoginId(request.getParameter("loginId"));
+		inputUser.setPassword(request.getParameter("password"));
 		inputUser.setName(request.getParameter("name"));
 		inputUser.setBranchId(Integer.parseInt(request.getParameter("branchId")));
 		inputUser.setDivisionRoleId(Integer.parseInt(request.getParameter("divisionRoleId")));
@@ -80,14 +65,14 @@ public class RegistrationServlet extends HttpServlet {
 			messages.add("ログインIDを入力してください");
 		} else {
 			if(!loginId.matches("[0-9a-zA-Z9]{6,20}")) {
-				messages.add("ログインIDのフォーマットエラーです。");
+				messages.add("ログインIDのフォーマットエラーです:半角英数字6文字以上20文字以下");
 			}
 		}
 		if (StringUtils.isEmpty(name) == true) {
 			messages.add("ユーザー名を入力してください");
 		} else {
 			if(!name.matches(".{1,10}")) {
-				messages.add("ユーザー名のフォーマットエラーです。");
+				messages.add("ユーザー名のフォーマットエラーです:全角10文字以内");
 			}
 		}
 		if (StringUtils.isEmpty(branchId) == true) {
@@ -106,7 +91,6 @@ public class RegistrationServlet extends HttpServlet {
 				messages.add("パスワードが一致しません");
 			}
 		}
-
 		if (messages.size() == 0) {
 			return true;
 		} else {
