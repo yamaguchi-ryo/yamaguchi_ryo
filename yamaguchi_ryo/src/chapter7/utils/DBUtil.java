@@ -22,6 +22,7 @@ public class DBUtil {
 		}
 	}
 
+
 	/**
 	 * コネクションを取得します。
 	 *
