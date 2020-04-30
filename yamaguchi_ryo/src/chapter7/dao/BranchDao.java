@@ -18,7 +18,7 @@ public class BranchDao {
 
 		PreparedStatement ps = null;
 		try {
-			String sql = "SELECT * FROM branch_names";
+			String sql = "SELECT * FROM branches";
 
 			ps = connection.prepareStatement(sql);
 
@@ -38,8 +38,8 @@ public class BranchDao {
 		List<User> ret = new ArrayList<User>();
 		try {
 			while (rs.next()) {
-				int branchId = rs.getInt("branch_id");
-				String branchName = rs.getString("branch_name");
+				int branchId = rs.getInt("id");
+				String branchName = rs.getString("name");
 
 				User user = new User();
 				user.setBranchId(branchId);
@@ -57,7 +57,7 @@ public class BranchDao {
 
 		PreparedStatement ps = null;
 		try {
-			String sql = "SELECT * FROM division_role_names";
+			String sql = "SELECT * FROM divisions_roles";
 
 			ps = connection.prepareStatement(sql);
 
@@ -77,8 +77,8 @@ public class BranchDao {
 		List<User> ret = new ArrayList<User>();
 		try {
 			while (rs.next()) {
-				int divrolId = rs.getInt("division_role_id");
-				String divrolName = rs.getString("division_role_name");
+				int divrolId = rs.getInt("id");
+				String divrolName = rs.getString("name");
 
 				User user = new User();
 				user.setDivisionRoleId(divrolId);

@@ -60,12 +60,12 @@
 						</c:forEach>
 					</select>
 				</div>
-				<label>ログインID</label>
-					<input type="text" name="loginId" id="loginId" value="${edituser.loginId}" placeholder="半角英数字で6文字以上20文字以下" /><br />
-				<label>氏名</label>
-					<input type="text" name="name" id="name" value="${edituser.name}" placeholder="全角10文字以内" />
-				<label>パスワード</label>
-					<input name="password" type="password" id="password" placeholder="半角英数字記号可で6文字以上20文字以下" /><br />
+				<label>ログインID (半角英数字で6文字以上20文字以下)</label>
+					<input type="text" name="loginId" id="loginId" value="${edituser.loginId}" /><br />
+				<label>氏名 (全角10文字以内)</label>
+					<input type="text" name="name" id="name" value="${edituser.name}" />
+				<label>パスワード (半角英数字記号可で6文字以上20文字以下)</label>
+					<input name="password" type="password" id="password" /><br />
 				<label>パスワード(確認用)</label>
 					<input name="verifypass" type="password" id="verifypass" placeholder="コピペはしないでください" /> <br /> <br />
 				<input type="submit" value="変更" />

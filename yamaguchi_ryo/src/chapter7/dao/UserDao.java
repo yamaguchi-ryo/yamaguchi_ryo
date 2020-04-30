@@ -29,7 +29,7 @@ public class UserDao {
 			sql.append(", name");
 			sql.append(", branch_id");
 			sql.append(", division_role_id");
-			sql.append(", active_stop");
+			sql.append(", stop_or_active");
 			sql.append(", created_date");
 			sql.append(", updated_date");
 			sql.append(") VALUES (");
@@ -70,7 +70,7 @@ public class UserDao {
 				String name = rs.getString("name");
 				int branchId = rs.getInt("branch_id");
 				int divisionRoleId = rs.getInt("division_role_id");
-				int userStopOrActive = rs.getInt("active_stop");
+				int userStopOrActive = rs.getInt("stop_or_active");
 				Timestamp createdDate = rs.getTimestamp("created_date");
 				Timestamp updatedDate = rs.getTimestamp("updated_date");
 				String divisionRoleName = rs.getString("division_role_name");
@@ -106,16 +106,16 @@ public class UserDao {
 					+ "users.name,"
 					+ "users.branch_id,"
 					+ "users.division_role_id,"
-					+ "users.active_stop,"
+					+ "users.stop_or_active,"
 					+ "users.created_date,"
 					+ "users.updated_date,"
-					+ "branch_names.branch_name,"
-					+ "division_role_names.division_role_name"
+					+ "branches.name as branch_name,"
+					+ "divisions_roles.name as division_role_name"
 					+ " FROM users"
-					+ " INNER JOIN branch_names"
-					+ " ON users.branch_id = branch_names.branch_id"
-					+ " INNER JOIN  division_role_names"
-					+ " ON users.division_role_id = division_role_names.division_role_id";
+					+ " INNER JOIN branches"
+					+ " ON users.branch_id = branches.id"
+					+ " INNER JOIN  divisions_roles"
+					+ " ON users.division_role_id = divisions_roles.id";
 
 			ps = connection.prepareStatement(sql);
 
@@ -139,16 +139,16 @@ public class UserDao {
 					+ "users.name,"
 					+ "users.branch_id,"
 					+ "users.division_role_id,"
-					+ "users.active_stop,"
+					+ "users.stop_or_active,"
 					+ "users.created_date,"
 					+ "users.updated_date,"
-					+ "branch_names.branch_name,"
-					+ "division_role_names.division_role_name"
+					+ "branches.name as branch_name,"
+					+ "divisions_roles.name as division_role_name"
 					+ " FROM users"
-					+ " INNER JOIN branch_names"
-					+ " ON users.branch_id = branch_names.branch_id"
-					+ " INNER JOIN  division_role_names"
-					+ " ON users.division_role_id = division_role_names.division_role_id"
+					+ " INNER JOIN branches"
+					+ " ON users.branch_id = branches.id"
+					+ " INNER JOIN  divisions_roles"
+					+ " ON users.division_role_id = divisions_roles.id"
 					+ " where users.id = " + id;
 
 			ps = connection.prepareStatement(sql);
@@ -231,11 +231,9 @@ public class UserDao {
 		String sql = null;
 		try {
 			int id = user.getId();
-			if(user.getUserStopOrActive() == 0) {
-				sql = "UPDATE users set active_stop = 1, updated_date = CURRENT_TIMESTAMP where id =" + id;
-			} else {
-				sql = "UPDATE users set active_stop = 0, updated_date = CURRENT_TIMESTAMP where id =" + id;
-			}
+			int status = user.getUserStopOrActive();
+			sql = "UPDATE users set stop_or_active = " + status
+					+ ", updated_date = CURRENT_TIMESTAMP where id =" + id;
 
 			ps = connection.prepareStatement(sql);
 
