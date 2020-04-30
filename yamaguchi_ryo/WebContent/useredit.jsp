@@ -15,15 +15,15 @@
 		<h3>ユーザー編集</h3>
 	</div>
 		<div class="main-form">
-		<c:if test="${ not empty errorMessages }">
+		<c:if test="${ not empty EditErrorMessages }">
 			<div class="errorMessages">
 				<ul>
-					<c:forEach items="${errorMessages}" var="message">
+					<c:forEach items="${EditErrorMessages}" var="message">
 						<li><c:out value="${message}" />
 					</c:forEach>
 				</ul>
 			</div>
-			<c:remove var="errorMessages" scope="session" />
+			<c:remove var="EditErrorMessages" scope="session" />
 		</c:if>
 		<div class="cp_iptxt">
 			<form action="useredit" method="post">
@@ -31,7 +31,7 @@
 				<!-- プルダウンに -->
 				<div class="cp_ipselect cp_sl01">
 					<label>支店名</label>
-					<select name="branchId" id="branchId">
+					<select name="branchId" id="branchId" required>
 						<option value="" hidden>--------</option>
 						<c:forEach items="${branchlist}" var="branchname">
 							<c:choose>
@@ -46,7 +46,7 @@
 					</select>
 				</div>
 				<div class="cp_ipselect cp_sl01">
-					<label>役職/所属名</label> <select name="divisionRoleId" id="divisionRoleId">
+					<label>役職/所属名</label> <select name="divisionRoleId" id="divisionRoleId" required>
 						<option value="" hidden>--------</option>
 						<c:forEach items="${divrollist}" var="divrolname">
 							<c:choose>

@@ -15,6 +15,8 @@
 		<h3>ユーザー管理システム</h3>
 	</div>
 	<div class="menu">
+	<c:remove var="inputUser" scope="session" />
+	<c:remove var="editUser" scope="session" />
 		<ul>
 			<li><a href="registration">ユーザー登録</a>
 		</ul>
@@ -47,6 +49,7 @@
 								pattern="yyyy/MM/dd" /></td>
 						<td style="width: 12%;">
 							<form action="index.jsp" method="post" onSubmit="return check()">
+								<input name="id" value="${user.id}" id="id" type="hidden" />
 								<input type="submit" name="userStopOrActive"
 									id="userStopOrActive"
 									<c:choose>
@@ -57,7 +60,6 @@
 											value="停止中"
 										</c:otherwise>
 									</c:choose>>
-									<input name="id" value="${user.id}" id="id" type="hidden" />
 							</form>
 						</td>
 					</tr>

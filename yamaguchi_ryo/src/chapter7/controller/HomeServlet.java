@@ -21,20 +21,16 @@ public class HomeServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-
-
 		List<User> userList = new UserlistService().getUsers();
-
-
 		request.setAttribute("userlist", userList);
-
 		request.getRequestDispatcher("/home.jsp").forward(request, response);
-
 	}
+
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
 		User status = fillUserStatus(request);
+
 		try {
 			new UserService().change(status);
 		} catch(NoRowsUpdatedRuntimeException e) {

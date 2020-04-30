@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
-
 import chapter7.beans.User;
 import chapter7.exception.NoRowsUpdatedRuntimeException;
 import chapter7.service.BranchlistService;
@@ -27,16 +25,16 @@ public class UserEditServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		int editId = Integer.parseInt(request.getParameter("id"));
 
+		int editId = Integer.parseInt(request.getParameter("id"));
 		User editUser = new UserService().getEditUser(editId);
+		HttpSession session = request.getSession();
 		List<User> branchList = new BranchlistService().getBranches();
 		List<User> divrolList = new DivrollistService().getDivrols();
 
-		request.setAttribute("branchlist", branchList);
-		request.setAttribute("divrollist", divrolList);
+		session.setAttribute("branchlist", branchList);
+		session.setAttribute("divrollist", divrolList);
 		request.setAttribute("edituser", editUser);
-
 		request.getRequestDispatcher("useredit.jsp").forward(request, response);
 	}
 
@@ -45,17 +43,16 @@ public class UserEditServlet extends HttpServlet {
 			HttpServletResponse response) throws IOException, ServletException {
 
 		List<String> messages = new ArrayList<String>();
+		User editUser = new User();
 		HttpSession session = request.getSession();
-		User inputUser = new User();
-		User editUser = getEditUser(request);
 
-		if (isValid(request, messages, inputUser) == true) {
+		if (isValid(request, messages, editUser) == true) {
 
 			try {
 				new UserService().edit(editUser);
 			} catch (NoRowsUpdatedRuntimeException e) {
 				messages.add("他の人によって更新されています。最新のデータを表示しました。データを確認してください。");
-				session.setAttribute("errorMessages", messages);
+				request.setAttribute("EditErrorMessages", messages);
 				request.setAttribute("edituser", editUser);
 				request.getRequestDispatcher("useredit.jsp").forward(request, response);
 				return;
@@ -63,69 +60,55 @@ public class UserEditServlet extends HttpServlet {
 
 			response.sendRedirect("./");
 		} else {
-			session.setAttribute("errorMessages", messages);
-			List<User> branchList = new BranchlistService().getBranches();
-			List<User> divrolList = new DivrollistService().getDivrols();
+			session.setAttribute("EditErrorMessages", messages);
+			session.setAttribute("edituser", editUser);
 
-			request.setAttribute("branchlist", branchList);
-			request.setAttribute("divrollist", divrolList);
-			request.setAttribute("edituser", inputUser);
-
-			request.getRequestDispatcher("useredit.jsp").forward(request, response);
+			response.sendRedirect("useredit.jsp");
 		}
 	}
 
-	private User getEditUser(HttpServletRequest request)
-			throws IOException, ServletException {
 
-		User editUser = new User();
+	private boolean isValid(HttpServletRequest request, List<String> messages, User editUser) {
+		String verifyPass = request.getParameter("verifypass");
 		editUser.setId(Integer.parseInt(request.getParameter("id")));
 		editUser.setLoginId(request.getParameter("loginId"));
 		editUser.setName(request.getParameter("name"));
 		editUser.setBranchId(Integer.parseInt(request.getParameter("branchId")));
 		editUser.setDivisionRoleId(Integer.parseInt(request.getParameter("divisionRoleId")));
 		editUser.setPassword(request.getParameter("password"));
-		return editUser;
-	}
 
-	private boolean isValid(HttpServletRequest request, List<String> messages, User inputUser) {
-		String loginId = request.getParameter("loginId");
-		String name = request.getParameter("name");
-		String branchId = request.getParameter("branchId");
-		String divisionRoleId = request.getParameter("divisionRoleId");
-		String password = request.getParameter("password");
-		String verifyPass = request.getParameter("verifypass");
-		inputUser.setLoginId(request.getParameter("loginId"));
-		inputUser.setName(request.getParameter("name"));
-		inputUser.setBranchId(Integer.parseInt(request.getParameter("branchId")));
-		inputUser.setDivisionRoleId(Integer.parseInt(request.getParameter("divisionRoleId")));
-
-		if (StringUtils.isEmpty(loginId) == true) {
+		if (editUser.getLoginId().isEmpty() == true) {
 			messages.add("ログインIDを入力してください");
 		} else {
-			if(!loginId.matches("[0-9a-zA-Z9]{6,20}")) {
+			if(!editUser.getLoginId().matches("[0-9a-zA-Z9]{6,20}")) {
 				messages.add("ログインIDのフォーマットエラーです:半角英数字6文字以上20文字以下");
 			}
 		}
-		if (StringUtils.isEmpty(name) == true) {
+		if (editUser.getName().isEmpty() == true) {
 			messages.add("ユーザー名を入力してください");
 		} else {
-			if(!name.matches(".{1,10}")) {
+			if(!editUser.getName().matches(".{1,10}")) {
 				messages.add("ユーザー名のフォーマットエラーです:全角10文字以内");
 			}
 		}
-		if (StringUtils.isEmpty(branchId) == true) {
-			messages.add("支店名を入力してください");
-		}
-		if (StringUtils.isEmpty(divisionRoleId) == true) {
-			messages.add("部署/役職名を入力してください");
+
+		if(!editUser.getPassword().isEmpty()) {
+			if(verifyPass.isEmpty()) {
+				messages.add("確認用パスワードを入力してください");
+			}
+			if (!editUser.getPassword().matches("[a-zA-Z0-9!-/:-@\\[-`{-~]{6,20}")) {
+				messages.add("パスワードのフォーマットエラーです:記号を含む全ての半角文字で6文字以上20文字以下");
+			}
+			if(!editUser.getPassword().equals(verifyPass)) {
+				messages.add("パスワードが一致しません");
+			}
+		} else {
+			if(!verifyPass.isEmpty()) {
+				messages.add("パスワードを入力してください");
+			}
 		}
 
-		if (!password.matches("[a-zA-Z0-9!-/:-@\\[-`{-~]{6,20}")) {
-			messages.add("パスワードのフォーマットエラーです");
-		} else if(!password.equals(verifyPass)) {
-			messages.add("パスワードが一致しません");
-		}
+
 
 		if (messages.size() == 0) {
 			return true;
