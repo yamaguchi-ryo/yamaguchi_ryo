@@ -38,7 +38,7 @@ public class UserDao {
 			sql.append(", ?");
 			sql.append(", ?");
 			sql.append(", ?");
-			sql.append(", '活動中'");
+			sql.append(", '0'");
 			sql.append(", CURRENT_TIMESTAMP");
 			sql.append(", CURRENT_TIMESTAMP");
 			sql.append(")");
