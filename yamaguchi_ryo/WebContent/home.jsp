@@ -63,11 +63,11 @@
 								<input type="submit" name="status"
 									id="status"
 									<c:choose>
-										<c:when test="${user.userStopOrActive==0}">
-											value="活動中"
+										<c:when test="${user.userStopOrActive==1}">
+											value="停止"
 										</c:when>
 										<c:otherwise>
-											value="停止中"
+											value="復活"
 										</c:otherwise>
 									</c:choose>>
 							</form>
