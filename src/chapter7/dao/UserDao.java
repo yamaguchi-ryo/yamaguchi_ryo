@@ -38,7 +38,11 @@ public class UserDao {
 			sql.append(", ?");
 			sql.append(", ?");
 			sql.append(", ?");
+<<<<<<< HEAD:src/chapter7/dao/UserDao.java
 			sql.append(", '1'");
+=======
+			sql.append(", '0'");
+>>>>>>> 8def25b8610c9bc97b1b9c7df76ee2f15dea78d9:yamaguchi_ryo/src/chapter7/dao/UserDao.java
 			sql.append(", CURRENT_TIMESTAMP");
 			sql.append(", CURRENT_TIMESTAMP");
 			sql.append(")");
