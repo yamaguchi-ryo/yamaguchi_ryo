@@ -62,7 +62,6 @@
 				</div>
 				<label>ログインID (半角英数字で6文字以上20文字以下)</label> <input type="text"
 					name="loginId" id="loginId" value="${inputUser.loginId}" required
-<<<<<<< HEAD
 					onChange="return inputLoginIdCheck(this.value)" /><br />
 				<div class = "error_area" id="id_error" style="display: none;"><p>入力エラーです。</p></div>
 
@@ -80,21 +79,6 @@
 					type="password" id="verifypass" placeholder="コピペはしないでください" required onChange="return verifyChecks();" /><br />
 				<div class = "error_area" id="verifypass_error" style="display: none;"><p>パスワードが一致しません。</p></div>
 
-=======
-					onChange="return inputLoginIdCheck(regi_form.loginId.value)" /><br />
-				<p id="id_error" style="display: none;">入力エラーです。</p>
-				<br /> <label>氏名 (全角10文字以内)</label> <input type="text" name="name"
-					id="name" value="${inputUser.name}" required
-					onChange="return inputNameCheck(regi_form.name.value)" />
-				<p id="name_error" style="display: none;">入力エラーです。</p>
-				<br /> <label>パスワード (半角英数字記号可で6文字以上20文字以下)</label> <input
-					name="password" type="password" id="password" required
-					onChange="return inputPassCheck(regi_form.password.value),verifyChecks()" />
-				<p id="password_error" style="display: none;">入力エラーです。</p>
-				<br /> <label>パスワード(確認用)</label> <input name="verifypass"
-					type="password" id="verifypass" placeholder="コピペはしないでください" required onChange="return verifyChecks();" /><br />
-				<p id="verifypass_error" style="display: none;">パスワードが一致しません。</p>
->>>>>>> 81ea4bbb504106228511d6e2ef54a2c47c9a0163
 				<br />
 				<br /> <input type="submit" value="登録" /> <a href="./"
 					class="btn-square">戻る</a>
@@ -105,13 +89,7 @@
 
 		function inputNameCheck(value){
 			const namePattern = /^.{1,10}$/g;
-<<<<<<< HEAD
 			if (value != "" && !value.match(namePattern)) {
-=======
-			if (value == "") {
-				document.getElementById("name_error").style.display = "none";
-			} else if (!value.match(namePattern)) {
->>>>>>> 81ea4bbb504106228511d6e2ef54a2c47c9a0163
 				document.getElementById("name_error").style.display = "block";
 			} else {
 				document.getElementById("name_error").style.display = "none";
@@ -120,13 +98,7 @@
 
 		function inputLoginIdCheck(value){
 			const loginIdPattern = /^[0-9a-zA-Z9]{6,20}$/g;
-<<<<<<< HEAD
 			if (value != "" && !value.match(loginIdPattern)) {
-=======
-			if (value == "") {
-				document.getElementById("id_error").style.display = "none";
-			} else if (!value.match(loginIdPattern)) {
->>>>>>> 81ea4bbb504106228511d6e2ef54a2c47c9a0163
 				document.getElementById("id_error").style.display = "block";
 			} else {
 				document.getElementById("id_error").style.display = "none";
@@ -135,13 +107,7 @@
 
 		function inputPassCheck(value){
 			const passPattern = /^[a-zA-Z0-9!-/:-@\\[-`{-~]{6,20}$/g;
-<<<<<<< HEAD
 			if (value != "" && !value.match(passPattern)) {
-=======
-			if (value == "") {
-				document.getElementById("password_error").style.display = "none";
-			} else if (!value.match(passPattern)) {
->>>>>>> 81ea4bbb504106228511d6e2ef54a2c47c9a0163
 				document.getElementById("password_error").style.display = "block";
 			} else {
 				document.getElementById("password_error").style.display = "none";
@@ -172,13 +138,10 @@
 				return true;
 			} else {
 				window.alert("入力にエラーがあります。");
-<<<<<<< HEAD
 				document.getElementById("name").style.backgroundColor = "red";
 				document.getElementById("loginId").style.backgroundColor = "red";
 				document.getElementById("password").style.backgroundColor = "red";
 				document.getElementById("verifypass").style.backgroundColor = "red";
-=======
->>>>>>> 81ea4bbb504106228511d6e2ef54a2c47c9a0163
 				return false;
 			}
 		}

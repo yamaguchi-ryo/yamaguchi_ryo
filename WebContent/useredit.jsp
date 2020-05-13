@@ -62,22 +62,17 @@
 				</div>
 				<label>ログインID (半角英数字で6文字以上20文字以下)</label>
 					<input type="text" name="loginId" id="loginId" value="${edituser.loginId}" required
-					onChange="return inputLoginIdCheck(edit_form.loginId.value)" /><br />
+					onChange="return inputLoginIdCheck(this.value)" /><br />
 				<p id="id_error" style="display: none;">入力エラーです。</p>
 
 				<label>氏名 (全角10文字以内)</label>
-<<<<<<< HEAD
 					<input type="text" name="name" id="name" value="${edituser.name}"required
-					onChange="return inputNameCheck(edit_form.name.value)" />
-=======
-					<input type="text" name="name" id="name" value="${edituser.name}"
-					requiredonChange="return inputNameCheck(edit_form.name.value)" />
->>>>>>> 81ea4bbb504106228511d6e2ef54a2c47c9a0163
+					onChange="return inputNameCheck(this.value)" />
 				<p id="name_error" style="display: none;">入力エラーです。</p>
 
 				<label>パスワード (半角英数字記号可で6文字以上20文字以下)</label>
 					<input name="password" type="password" id="password"
-					onChange="return inputPassCheck(edit_form.password.value),verifyChecks()" />
+					onChange="return inputPassCheck(this.value),verifyChecks()" />
 				<p id="password_error" style="display: none;">入力エラーです。</p><br />
 
 				<label>パスワード(確認用)</label>
@@ -95,9 +90,7 @@
 
 		function inputNameCheck(value){
 			const namePattern = /^.{1,10}$/g;
-			if (value == "") {
-				document.getElementById("name_error").style.display = "none";
-			} else if (!value.match(namePattern)) {
+			if (value != "" && !value.match(namePattern)) {
 				document.getElementById("name_error").style.display = "block";
 			} else {
 				document.getElementById("name_error").style.display = "none";
@@ -106,9 +99,7 @@
 
 		function inputLoginIdCheck(value){
 			const loginIdPattern = /^[0-9a-zA-Z9]{6,20}$/g;
-			if (value == "") {
-				document.getElementById("id_error").style.display = "none";
-			} else if (!value.match(loginIdPattern)) {
+			if (value != "" && !value.match(loginIdPattern)) {
 				document.getElementById("id_error").style.display = "block";
 			} else {
 				document.getElementById("id_error").style.display = "none";
@@ -117,9 +108,7 @@
 
 		function inputPassCheck(value){
 			const passPattern = /^[a-zA-Z0-9!-/:-@\\[-`{-~]{6,20}$/g;
-			if (value == "") {
-				document.getElementById("password_error").style.display = "none";
-			} else if (!value.match(passPattern)) {
+			if (value != "" && !value.match(passPattern)) {
 				document.getElementById("password_error").style.display = "block";
 			} else {
 				document.getElementById("password_error").style.display = "none";
