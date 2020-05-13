@@ -34,11 +34,14 @@ body {
 	color: red;
 }
 
+<<<<<<< HEAD
 .error_area {
 	margin: 10px 0;
 	color: red;
 }
 
+=======
+>>>>>>> 81ea4bbb504106228511d6e2ef54a2c47c9a0163
 .menu {
 	align-items: center;
     place-content: center;

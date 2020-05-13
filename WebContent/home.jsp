@@ -50,8 +50,18 @@
 						<td style="width: 12%;">
 							<form action="index.jsp" method="post" onSubmit="return check()">
 								<input name="id" value="${user.id}" id="id" type="hidden" />
+<<<<<<< HEAD
 								<input type="hidden" name="changeinto"
 									id="changeinto"
+=======
+<<<<<<< HEAD:WebContent/home.jsp
+								<input type="hidden" name="changeinto"
+									id="changeinto"
+=======
+								<input type="submit" name="userStopOrActive"
+									id="userStopOrActive"
+>>>>>>> 8def25b8610c9bc97b1b9c7df76ee2f15dea78d9:yamaguchi_ryo/WebContent/home.jsp
+>>>>>>> 81ea4bbb504106228511d6e2ef54a2c47c9a0163
 									<c:choose>
 										<c:when test="${user.userStopOrActive==0}">
 											value="1"

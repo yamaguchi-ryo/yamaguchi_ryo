@@ -66,8 +66,13 @@
 				<p id="id_error" style="display: none;">入力エラーです。</p>
 
 				<label>氏名 (全角10文字以内)</label>
+<<<<<<< HEAD
 					<input type="text" name="name" id="name" value="${edituser.name}"required
 					onChange="return inputNameCheck(edit_form.name.value)" />
+=======
+					<input type="text" name="name" id="name" value="${edituser.name}"
+					requiredonChange="return inputNameCheck(edit_form.name.value)" />
+>>>>>>> 81ea4bbb504106228511d6e2ef54a2c47c9a0163
 				<p id="name_error" style="display: none;">入力エラーです。</p>
 
 				<label>パスワード (半角英数字記号可で6文字以上20文字以下)</label>
